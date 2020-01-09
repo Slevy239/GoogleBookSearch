@@ -1,14 +1,21 @@
 import React from "react";
+// import "./style.css"
 
-function Jumbotron({ children }) {
+
+function Jumbotron() {
   return (
-    <div
-      style={{ height: 300, clear: "both", paddingTop: 120, textAlign: "center" }}
-      className="jumbotron"
-    >
-      {children}
+    <div className="jumbotron text-center">
+      <h1><span><a className="white" id="jumboHead" href="/">My Virtual Bookshelf</a></span></h1>
+        <div>
+          <a className="white" target="_blank" rel="noopener noreferrer" href="http://developers.google.com/books/">
+            Powered by Google Books
+          </a>
+        </div>
+      
     </div>
   );
 }
+
+
 
 export default Jumbotron;
