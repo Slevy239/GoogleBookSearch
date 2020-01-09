@@ -1,78 +1,68 @@
 import React, { Component } from 'react';
-import { Row, Col } from "../../components/Grid";
-import { BookList, BookListItem } from "../../components/BookList";
-import axios from "axios";
-import EmptyList from '../../components/EmptyList';
-import RemoveBookBtn from '../../components/RemoveBookBtn';
-import { toast } from 'react-toastify';
-import API from "../../utils/API";
+import Jumbotron from '../../components/Jumbotron';
+import API from '../../utils/API';
+import Results from '../../components/Results/Results';
 
-
-
+// Saved Books Page
+// Displays results
 class Saved extends Component {
-  state = {
-    books: [],
-    initialized: true
-  }
+    constructor(props){
+        super(props);
+        this.state = {
+            books: []
+        }
+    }
 
-  componentDidMount() {
-    this.loadBooks();
-  }
+    componentDidMount = () => {
+        this.loadBooks();
+    }
 
-  loadBooks = () => {
-    API.getBooks()
-      .then(res => this.setState({ books: res.data }))
-      .catch(err => console.log(err));
-  };
-
-  deleteFromDB = id => {
-    console.log(id);
-
-    axios.delete(`/api/books/${id}`)
-      .then(() => {
-        toast.error('Book Deleted');
-        this.getBooks();
-
-      })
-      .catch(err => console.log(err))
-  }
-
-  render() {
-    return (
-      <div>
-        <Row>
-          <Col size="md-12">
-            {this.state.books.length > 0 ?
-              <BookList>
-                {this.state.books.map(book => {
-                  console.log(book)
-                  return (
-                    <div>
-                      <BookListItem
-                        key={book._id}
-                        authors={book.authors}
-                        title={book.title}
-                        synopsis={book.synopsis}
-                        link={book.link}
-                        thumbnail={book.thumbnail}
-                      // delete={()=> this.deleteFromDB(book._id)}
-                      />
-                      <RemoveBookBtn
-                        onClick={() => this.deleteFromDB(book._id)}
-                      />
-                    </div>
-                  )
-
-                })}
-              </BookList>
-              :
-              <EmptyList />
+    // load books from "/api/books"
+    loadBooks = () => {
+        API.getBooks()
+            .then(res => 
+                this.setState({ books: res.data }
+            )
+        ).catch(err => {
+            if(err) {
+                console.log(err);
             }
-          </Col>
-        </Row>
-      </div>
-    );
-  }
+        })
+    }
+
+    // delete a book from "/api/books/:id" route
+    // then reload books from "/api/books"
+    deleteBook = (id) => {
+        API.deleteBook(id)
+            .then(res => this.loadBooks())
+            .catch(err => console.log(err))
+    }
+
+
+    render () {
+        return (
+            <div>
+            <Jumbotron />
+            {/* Map through books array in state
+                    and pass props to results component */}
+                {this.state.books.map(book => (
+                    <Results
+                        key={book.id}
+                        title={book.volumeInfo.title}
+                        authors={(!book.volumeInfo.authors) ? "No author listed" : book.volumeInfo.authors.join(', ')}
+                        description={(!book.volumeInfo.description) ? "No description available" : book.volumeInfo.description}
+                        link={(!book.volumeInfo.infoLink) ? "No link available" : book.volumeInfo.infoLink}
+                        image={(!book.volumeInfo.imageLinks) ? "No image available" : book.volumeInfo.imageLinks.thumbnail}
+                        date={(!book.volumeInfo.publishedDate) ? "No date available" : book.volumeInfo.publishedDate}
+                        id={book.id}
+                    // add an onclick to delete the book from the DB
+                    // <DeleteBtn onClick={() => this.deleteBook(book._id)} />
+                    />
+                ))}
+
+            </div>
+        )
+    }
 }
 
 export default Saved;
