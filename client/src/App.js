@@ -13,8 +13,9 @@ const App = () => {
       <div>
         <Navbar />
         <Switch>
-          <Route exact path="/Search" component={Search} />
+          <Route exact path="/" component={Saved} />
           <Route exact path="/Saved" component={Saved} />
+          <Route exact path="/Search" component={Search} />
         </Switch>
       </div>
     </Router>

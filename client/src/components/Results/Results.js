@@ -4,23 +4,32 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 // import './Results.css'
 
-const Results = (props) => {
-
+export function Results({children}) {
     return (
+        <ul className="list-group">{children}</ul>
+    )
+};
+
+export class ResultsItem extends React.Component{
+
+    return (){
+        console.log(this.props);
+    return(
+        <li>
         <Container className="card-container">
-            <div className="card" id={props.id}>
-                <div className="card-header">
+            <div className="card" id={this.props.id}>
+                {/* <div className="card-header">
                     <img alt={`${props.id}-img`} src={props.image} />
                     {props.title}
-                </div>
+                </div> */}
                 <div className="card-body">
-                    <h6 className="card-title">Authors: {props.authors}</h6>
-                    <h6 className="card-title">Date: {props.date}</h6>
+                    <h6 className="card-title">Authors: {this.props.authors}</h6>
+                    <h6 className="card-title">Date: {this.props.date}</h6>
                     <hr></hr>
-                    <p className="card-text">{props.description}</p>
+                    <p className="card-text">{this.props.description}</p>
                     <div className="buttonsDiv">
                         <button className="btn btn-success viewBtn">
-                            <a className="link-text" href={props.link}>
+                            <a className="link-text" href={this.props.link}>
                                 View</a>
                         </button>
 
@@ -33,7 +42,7 @@ const Results = (props) => {
                 </div>
             </div>
         </Container>
+        </li>
     )
 }
-
-export default Results;
+}
