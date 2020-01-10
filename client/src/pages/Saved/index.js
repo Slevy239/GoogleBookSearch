@@ -1,65 +1,86 @@
-import React, { Component } from "react";
-import Jumbotron from "../../components/Jumbotron";
-import API from "../../utils/API";
-import DeleteBtn from "../../components/DeleteBtn";
-import { Col, Row, Container } from "../../components/Grid";
+import React, { Component } from 'react';
+import { Row, Col } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
-import { Input, TextArea, FormBtn } from "../../components/Form";
+import axios from "axios";
+import EmptyList from '../../components/EmptyList';
+import DeleteBtn from '../../components/DeleteBtn';
+import { toast } from 'react-toastify';
+import Jumbotron from '../../components/Jumbotron'
+
 
 class Saved extends Component {
   state = {
-    books: []
-  };
-
-  componentDidMount() {
-    this.loadBooks();
+    savedBooks: [],
+    initialized: true
   }
 
-  loadBooks = () => {
-    API.getBooks()
-      .then(res => this.setState({ books: res.data }))
-      .catch(err => console.log(err));
-  };
+  componentDidMount() {
+    this.getBooks();
+  }
+
+  getBooks = () => {
+    axios.get("/api/books")
+      .then(res => {
+        this.setState({ savedBooks: res.data })
+      })
+      .catch((err => console.log(err)))
+  }
+
+  deleteFromDB = id => {
+    console.log(id);
+
+    axios.delete(`/api/books/${id}`)
+      .then(() => {
+        toast.error('Book Deleted');
+        this.getBooks();
+
+      })
+      .catch(err => console.log(err))
+  }
 
   render() {
     return (
-      <Container fluid>
+      <div>
+        <Jumbotron
+        />
         <Row>
-          <Col size="md-6">
-            <Jumbotron>
-              <h1>What Book should I maybe read, sometime?</h1>
-            </Jumbotron>
-            <form>
-              <Input name="title" placeholder="Title (required)" />
-              <Input name="author" placeholder="Author (required)" />
-              <TextArea name="synopsis" placeholder="Synopsis (Optional)" />
-              <FormBtn>Submit Book</FormBtn>
-            </form>
-          </Col>
-          <Col size="md-6 sm-12">
-            <Jumbotron>
-              <h1>Books I should be reading instead of developing React Applications:</h1>
-            </Jumbotron>
-            {this.state.books.length ? (
+          <Col size="md-12">
+            {this.state.savedBooks.length > 0 ?
               <List>
-                {this.state.books.map(book => (
-                  <ListItem key={book._id}>
-                    <strong>
-                      {book.title} by {book.author}
-                    </strong>
+                {this.state.savedBooks.map(book => {
+                  console.log(book)
+                  return (
+                    <div id='item'>
+                      <ListItem
+                        key={book._id}
+                        authors={book.author}
+                        title={book.title}
+                        synopsis={book.synopsis}
+                        link={book.link}
+                        thumbnail={book.thumbnail}
+                      // delete={()=> this.deleteFromDB(book._id)}
+                      />
+                      <div className="col"></div>
 
-                    <DeleteBtn />
-                  </ListItem>
-                ))}
+                        <div className="col">
+
+                          <DeleteBtn
+                            onClick={() => this.deleteFromDB(book._id)}
+                          />
+                        </div>
+                      </div>
+                      )
+    
+                    })}
               </List>
-            ) : (
-                <h3>No Results to Display</h3>
-              )}
+              :
+              <EmptyList />
+                }
           </Col>
         </Row>
-      </Container>
-    );
-  }
-}
-
+      </div>
+        );
+      }
+    }
+    
 export default Saved;

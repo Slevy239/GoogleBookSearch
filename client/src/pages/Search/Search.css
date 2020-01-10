@@ -1,0 +1,10 @@
+div#item {
+    border: 1px solid;
+    display: flex;
+align-items: center;
+}
+button {
+    display:inline-block;       
+    margin:0 auto;
+    width: 200px; 
+}
