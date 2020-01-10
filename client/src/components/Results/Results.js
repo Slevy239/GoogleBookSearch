@@ -4,13 +4,9 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 // import './Results.css'
 
-export function Results({children}) {
-    return (
-        <ul className="list-group">{children}</ul>
-    )
-};
 
-export class ResultsItem extends React.Component{
+
+export class Results extends React.Component{
 
     return (){
         console.log(this.props);
@@ -35,7 +31,7 @@ export class ResultsItem extends React.Component{
 
                         {/* on Save button click, save book to DB */}
                         <button className="btn btn-success saveBtn">
-                            <a className="link-text" {...props}>
+                            <a className="link-text">
                                 Save</a>
                         </button>
                     </div>

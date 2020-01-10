@@ -1,69 +1,65 @@
-import React, { Component } from 'react';
-import Jumbotron from '../../components/Jumbotron';
-import API from '../../utils/API';
-import {Results, ResultsItem } from '../../components/Results/Results';
+import React, { Component } from "react";
+import Jumbotron from "../../components/Jumbotron";
+import API from "../../utils/API";
+import DeleteBtn from "../../components/DeleteBtn";
+import { Col, Row, Container } from "../../components/Grid";
+import { List, ListItem } from "../../components/List";
+import { Input, TextArea, FormBtn } from "../../components/Form";
 
-// Saved Books Page
-// Displays results
 class Saved extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            books: []
-        }
-    }
+  state = {
+    books: []
+  };
 
-    componentDidMount = () => {
-        this.loadBooks();
-    }
+  componentDidMount() {
+    this.loadBooks();
+  }
 
-    // load books from "/api/books"
-    loadBooks = () => {
-        API.getBooks()
-          .then(res => this.setState({ books: res.data }))
-          .catch(err => console.log(err));
-      };
+  loadBooks = () => {
+    API.getBooks()
+      .then(res => this.setState({ books: res.data }))
+      .catch(err => console.log(err));
+  };
 
-    // delete a book from "/api/books/:id" route
-    // then reload books from "/api/books"
-    deleteBook = (id) => {
-        API.deleteBook(id)
-            .then(res => this.loadBooks())
-            .catch(err => console.log(err))
-    }
-
-
-    render () {
-        return (
-            <div>
-            <Jumbotron />
-            {/* Map through books array in state
-                    and pass props to results component */}
+  render() {
+    return (
+      <Container fluid>
+        <Row>
+          <Col size="md-6">
+            <Jumbotron>
+              <h1>What Books Should I Read?</h1>
+            </Jumbotron>
+            <form>
+              <Input name="title" placeholder="Title (required)" />
+              <Input name="author" placeholder="Author (required)" />
+              <TextArea name="synopsis" placeholder="Synopsis (Optional)" />
+              <FormBtn>Submit Book</FormBtn>
+            </form>
+          </Col>
+          <Col size="md-6 sm-12">
+            <Jumbotron>
+              <h1>Books On My List</h1>
+            </Jumbotron>
+            {this.state.books.length ? (
+              <List>
                 {this.state.books.map(book => (
-                    <ResultsItem
-                        key={book._id}
+                  <ListItem key={book._id}>
+                    <strong>
+                      {book.title} by {book.author}
+                    </strong>
 
-                        // title={book.volumeInfo.title}
-                        // authors={(!book.volumeInfo.authors) ? "No author listed" : book.volumeInfo.authors.join(', ')}
-                        // description={(!book.volumeInfo.description) ? "No description available" : book.volumeInfo.description}
-                        // link={(!book.volumeInfo.infoLink) ? "No link available" : book.volumeInfo.infoLink}
-                        // image={(!book.volumeInfo.imageLinks) ? "No image available" : book.volumeInfo.imageLinks.thumbnail}
-                        // date={(!book.volumeInfo.publishedDate) ? "No date available" : book.volumeInfo.publishedDate}
-                        // id={book.id}
-                    // add an onclick to delete the book from the DB
-                    // <DeleteBtn onClick={() => this.deleteBook(book._id)} />
-                    >
-                       <a href={"/books/" + book._id}>
-                           <strong>
-                               {book.title} by {book.author}
-                           </strong>
-                           </a> 
-                    </ResultsItem>
+                    <DeleteBtn />
+                  </ListItem>
                 ))}
-
-            </div>
-        )
-    }
+              </List>
+            ) : (
+                <h3>No Results to Display</h3>
+              )}
+          </Col>
+        </Row>
+      </Container>
+    );
+  }
 }
 
 export default Saved;
