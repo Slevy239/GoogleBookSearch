@@ -21,7 +21,7 @@ class Search extends Component {
   searchGBooks = () => {
     let url = `https://www.googleapis.com/books/v1/volumes?q=${
       this.state.query
-    }`;
+      }`;
     axios
       .get(url)
       .then(res => {
@@ -41,59 +41,59 @@ class Search extends Component {
   };
 
 
-  
+
 
   render() {
     return (
       <Row>
         <Col size="md-12">
-        <div>
-          <input id="bookQ" className="form-control form-control-lg" autoComplete="off" type="text" name="query" onChange={this.handleInput} />
-          <div id='submit'>
-<div className="col">
+          <div>
+            <input id="bookQ" className="form-control form-control-lg" autoComplete="off" type="text" name="query" onChange={this.handleInput} />
+            <div id='submit'>
+              <div className="col">
 
-          <button  type="submit" className="btn btn-danger" onClick={this.searchGBooks} >
-            Search for Books
+                <button type="submit" className="btn btn-danger" onClick={this.searchGBooks} >
+                  Search for Books
           </button>
-</div>
-          </div>
-                   
-
-          {(this.state.books && this.state.books.length > 0) ? 
-          <List>
-          {this.state.books.map(book => {
-            return (
-              <div id="item">
-              <ListItem
-              key={book.id} 
-              authors={book.volumeInfo.authors ? book.volumeInfo.authors : ["No Author Available"]}
-              title={book.volumeInfo.title}
-              synopsis={book.volumeInfo.description ? 
-                book.volumeInfo.description : "No Description Available"}
-              link={book.volumeInfo.infoLink}
-              thumbnail={book.volumeInfo.imageLinks.thumbnail ? 
-                book.volumeInfo.imageLinks.thumbnail : "#"}
-              />
-
-              <AddBtn
-              authors={book.volumeInfo.authors ? book.volumeInfo.authors : ["No Author Available"]}
-              title={book.volumeInfo.title}
-              synopsis={book.volumeInfo.description ? 
-                book.volumeInfo.description : "No Description Available"}
-              link={book.volumeInfo.infoLink}
-              thumbnail={book.volumeInfo.imageLinks.thumbnail ? 
-                book.volumeInfo.imageLinks.thumbnail : "#"}
-              
-              />
               </div>
-            )
-          })}
-          </List>
-          : 
-          <EmptyList/>         
-          }
-          
-        </div>
+            </div>
+
+
+            {(this.state.books && this.state.books.length > 0) ?
+              <List>
+                {this.state.books.map(book => {
+                  return (
+                    <div id="item">
+                      <ListItem
+                        key={book.id}
+                        authors={book.volumeInfo.authors ? book.volumeInfo.authors : ["No Author Available"]}
+                        title={book.volumeInfo.title}
+                        synopsis={book.volumeInfo.description ?
+                          book.volumeInfo.description : "No Description Available"}
+                        link={book.volumeInfo.infoLink}
+                        thumbnail={book.volumeInfo.imageLinks.thumbnail ?
+                          book.volumeInfo.imageLinks.thumbnail : "#"}
+                      />
+
+                      <AddBtn
+                        authors={book.volumeInfo.authors ? book.volumeInfo.authors : ["No Author Available"]}
+                        title={book.volumeInfo.title}
+                        synopsis={book.volumeInfo.description ?
+                          book.volumeInfo.description : "No Description Available"}
+                        link={book.volumeInfo.infoLink}
+                        thumbnail={book.volumeInfo.imageLinks.thumbnail ?
+                          book.volumeInfo.imageLinks.thumbnail : "#"}
+
+                      />
+                    </div>
+                  )
+                })}
+              </List>
+              :
+              <EmptyList />
+            }
+
+          </div>
         </Col>
       </Row>
     );
