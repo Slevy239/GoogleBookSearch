@@ -4,6 +4,7 @@ import Button from "../Button";
 import axios from "axios";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class AddBtn extends React.Component{
  
