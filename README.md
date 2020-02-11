@@ -14,9 +14,32 @@ mongoose, axios, react-router-dom
 * MongoDB
 * Heroku
 
-<h1>How To Use:</h1>
-
+<h1>Demo:</h1>
+<ol>
+<li>Homepage</li>
 <img src='./home.png'>
+
+<br>
+
+<li>Search For a Book</li>
+<img src='./search.png'>
+
+
+<br>
+
+<li>Click to Save Book</li>
+<img src='./saveBook.png'>
+
+
+<br>
+
+<li>The saved book appears on the home page</li>
+<img src='./savedHome.png'>
+
+<br>
+<li>You are able to delete a certain book once you have finished it</li>
+
+</ol>
 
 ## Live Site
 [Deployed](https://react-bookshelf2020.herokuapp.com/)
