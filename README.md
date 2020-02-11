@@ -14,5 +14,9 @@ mongoose, axios, react-router-dom
 * MongoDB
 * Heroku
 
+<h1>How To Use:</h1>
+
+<img src='./home.png'>
+
 ## Live Site
 [Deployed](https://react-bookshelf2020.herokuapp.com/)
