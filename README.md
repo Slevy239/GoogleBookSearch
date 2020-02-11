@@ -20,23 +20,32 @@ mongoose, axios, react-router-dom
 <img src='./home.png'>
 
 <br>
+<br>
+<hr>
 
 <li>Search For a Book</li>
 <img src='./search.png'>
 
 
 <br>
+<br>
+<hr>
 
 <li>Click to Save Book</li>
 <img src='./saveBook.png'>
 
 
 <br>
+<br>
+<hr>
 
 <li>The saved book appears on the home page</li>
 <img src='./savedHome.png'>
 
 <br>
+<br>
+<hr>
+
 <li>You are able to delete a certain book once you have finished it</li>
 
 </ol>
