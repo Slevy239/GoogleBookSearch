@@ -52,7 +52,7 @@ mongoose, axios, react-router-dom
 <li>Homepage</li>
 <br>
 
-<img src='./home.png'>
+<img src='./screenshots/home.png'>
 
 <br>
 <br>
@@ -61,7 +61,7 @@ mongoose, axios, react-router-dom
 <li>Search For a Book</li>
 <br>
 
-<img src='./search.png'>
+<img src='./screenshots/search.png'>
 
 <br>
 <br>
@@ -70,7 +70,7 @@ mongoose, axios, react-router-dom
 <li>Click to Save Book</li>
 <br>
 
-<img src='./saveBook.png'>
+<img src='./screenshots/saveBook.png'>
 
 <br>
 <br>
@@ -79,7 +79,7 @@ mongoose, axios, react-router-dom
 <li>The saved book appears on the home page</li>
 <br>
 
-<img src='./savedHome.png'>
+<img src='./screenshots/savedHome.png'>
 
 <br>
 <br>
