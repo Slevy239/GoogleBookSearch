@@ -17,6 +17,8 @@ mongoose, axios, react-router-dom
 <h1>Demo:</h1>
 <ol>
 <li>Homepage</li>
+<br>
+
 <img src='./home.png'>
 
 <br>
@@ -24,6 +26,8 @@ mongoose, axios, react-router-dom
 <hr>
 
 <li>Search For a Book</li>
+<br>
+
 <img src='./search.png'>
 
 
@@ -32,6 +36,8 @@ mongoose, axios, react-router-dom
 <hr>
 
 <li>Click to Save Book</li>
+<br>
+
 <img src='./saveBook.png'>
 
 
@@ -40,6 +46,8 @@ mongoose, axios, react-router-dom
 <hr>
 
 <li>The saved book appears on the home page</li>
+<br>
+
 <img src='./savedHome.png'>
 
 <br>
